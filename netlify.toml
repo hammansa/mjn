@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+  command = ""
+
+# (선택) 기본 보안 헤더를 추가하고 싶으면 아래 블록을 활성화하세요.
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     X-Content-Type-Options = "nosniff"
+#     X-Frame-Options = "DENY"
+#     Referrer-Policy = "strict-origin-when-cross-origin"

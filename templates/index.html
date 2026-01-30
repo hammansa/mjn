@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>매진남 | Premium Home Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="apple-touch-icon" href="/static/logo.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+        .glass-morphism { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .hover-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .gradient-text { background: linear-gradient(90deg, #1e40af, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Small visual tweak for footer links */
+        .site-footer a { color: #0ea5e9; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass-morphism border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full overflow-hidden">
+                    <img src="/static/logo.svg" alt="MaejinNam" class="w-full h-full object-cover">
+                </div>
+                <span class="text-2xl font-black tracking-tighter text-slate-900 uppercase">MaejinNam</span>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                {% if user_name %}
+                    <div class="flex items-center space-x-4">
+                        <span class="text-slate-600 font-semibold text-sm">
+                            <i class="fa-solid fa-circle-check text-green-500 mr-1"></i>
+                            환영합니다, <span class="text-blue-600 font-bold">{{ user_name }}</span> 파트너님
+                        </span>
+                        {% if role == 'ADMIN' %}
+                            <a href="/admin/dashboard" class="text-xs font-bold text-slate-400 hover:text-blue-600 transition">ADMIN HQ</a>
+                        {% endif %}
+                        <a href="/logout" class="text-xs font-bold text-rose-400 hover:text-rose-600 transition">로그아웃</a>
+                    </div>
+                {% else %}
+                    <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600 mr-6">
+                        <a href="#" class="hover:text-blue-600 transition">서비스 안내</a>
+                        <a href="/login" class="hover:text-blue-600 transition">전문가 파트너</a>
+                    </div>
+                    <button onclick="location.href='/login'" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-600 transition shadow-lg shadow-slate-200">시작하기</button>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+      <section class="relative py-24 overflow-hidden">
+          <div class="max-w-7xl mx-auto px-6 text-center">
+              <span class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-6">대한민국 1등 영상 검증 서비스</span>
+              <h1 class="text-5xl md:text-7xl font-black text-slate-900 leading-tight mb-8">
+                  보이지 않는 곳까지<br><span class="gradient-text">매진하겠습니다.</span>
+              </h1>
+              <p class="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+                  단순한 연결을 넘어 실시간 영상 검수 시스템으로<br>전문가의 실력을 투명하게 증명하는 프리미엄 플랫폼
+              </p>
+              <a href="/expert/dashboard" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-xs font-black hover:bg-blue-600 hover:text-white transition inline-block mb-8">
+                  내 작업 리스트 <i class="fa-solid fa-chevron-right ml-1"></i>
+              </a>
+              <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                  <div class="relative group">
+                      <input type="text" placeholder="어떤 매진남이 필요하신가요?" class="w-full md:w-96 px-8 py-4 rounded-2xl bg-white border border-slate-200 shadow-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                      <button class="absolute right-2 top-2 bg-blue-600 text-white p-2.5 rounded-xl hover:bg-blue-700 transition">
+                          <i class="fa-solid fa-magnifying-glass"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      
+
+      <section class="max-w-7xl mx-auto px-6 py-20">
+          <div class="flex justify-between items-end mb-12">
+              <div>
+                  <h2 class="text-3xl font-black text-slate-900">핵심 매진 서비스</h2>
+                  <p class="text-slate-400 mt-2 font-medium">엄선된 매진남들이 직접 찾아갑니다.</p>
+              </div>
+              <a href="#" class="text-blue-600 font-bold text-sm">전체보기 <i class="fa-solid fa-chevron-right ml-1"></i></a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+              <div class="hover-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden group">
+                  <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 text-2xl mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                      <i class="fa-solid fa-broom"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">청소</h3>
+                  <p class="text-slate-400 text-sm leading-relaxed mb-6">가사, 이사, 특수 청소까지 영상으로 확인하는 완벽함</p>
+                  <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase">Premium</span>
+              </div>
+
+              <div class="hover-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden group">
+                  <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 text-2xl mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <i class="fa-solid fa-robot"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">렌탈</h3>
+                  <p class="text-slate-400 text-sm leading-relaxed mb-6">가전, 서빙로봇, 최신 기기 렌탈의 모든 것</p>
+                  <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full uppercase">Smart</span>
+              </div>
+
+              <div class="hover-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden group">
+                  <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 text-2xl mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                      <i class="fa-solid fa-wifi"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">통신</h3>
+                  <p class="text-slate-400 text-sm leading-relaxed mb-6">인터넷 가입부터 결합 할인까지 한 번에 비교</p>
+                  <span class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full uppercase">Simple</span>
+              </div>
+
+              <div class="hover-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden group">
+                  <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 text-2xl mb-6 group-hover:bg-rose-600 group-hover:text-white transition-colors">
+                      <i class="fa-solid fa-heart-pulse"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">케어</h3>
+                  <p class="text-slate-400 text-sm leading-relaxed mb-6">병원 동행부터 펫 이동까지 믿음직한 파트너</p>
+                  <span class="text-xs font-bold text-rose-600 bg-rose-50 px-3 py-1 rounded-full uppercase">Safe</span>
+              </div>
+          </div>
+      </section>
+
+      <!-- 통합 안내 / 하단 섹션 -->
+      <footer class="site-footer bg-white border-t">
+        <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="font-bold text-lg">고객 안내</h3>
+            <p class="text-sm text-slate-600 mt-2">서비스 이용 관련 문의는 고객센터로 연락주세요.</p>
+            <p class="text-sm text-slate-500 mt-2">운영시간: 평일 09:00 - 18:00</p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg">파트너 안내</h3>
+            <ul class="mt-2 text-sm text-slate-600 space-y-1">
+              <li>- 영상 업로드 시 위치 인증을 필수로 확인합니다.</li>
+              <li>- 자동 산정된 금액은 관리자의 검수 후 확정됩니다.</li>
+              <li>- 거리 기준: 세종시 중심으로 500m 이내 우선 적용</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg">연락처</h3>
+            <p class="text-sm text-slate-600 mt-2">이메일: <a href="mailto:support@maejinnam.example">support@maejinnam.example</a></p>
+            <p class="text-sm text-slate-600">전화: <a href="tel:+821012345678">010-1234-5678</a></p>
+          </div>
+        </div>
+        <div class="border-t py-4">
+          <div class="max-w-7xl mx-auto px-6 text-center text-xs text-slate-400">&copy; 2026 MAEJINNAM. All rights reserved.</div>
+        </div>
+      </footer>
+
+</body>
+</html>
