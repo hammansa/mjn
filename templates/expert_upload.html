@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작업 영상 업로드 | 매진남 파트너</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="apple-touch-icon" href="/static/logo.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl w-full max-w-lg">
+        <div class="text-center mb-6">
+            <img src="/static/logo.svg" alt="MaejinNam" class="mx-auto mb-4 w-16 h-16 object-cover rounded-full">
+            <h2 class="text-2xl font-black text-slate-900 mb-8 text-center">작업 영상 업로드</h2>
+        </div>
+        <form action="/expert/submit_job" method="POST" enctype="multipart/form-data" class="space-y-8">
+            <input type="hidden" name="lat" id="lat">
+            <input type="hidden" name="lng" id="lng">
+            <div id="manual-loc" class="hidden mt-4">
+                <label class="block text-sm font-bold text-slate-700">위치 직접 입력 (권한이 없을 경우)</label>
+                <div class="flex space-x-2 mt-2">
+                    <input type="text" id="manual-lat" placeholder="위도" class="w-1/2 px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200" />
+                    <input type="text" id="manual-lng" placeholder="경도" class="w-1/2 px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200" />
+                </div>
+                <button type="button" onclick="applyManualLocation()" class="mt-3 bg-slate-900 text-white px-4 py-2 rounded-xl">적용</button>
+            </div>
+            <div class="space-y-4">
+                <label class="block text-sm font-bold text-slate-700">서비스 카테고리 선택</label>
+                <select name="category" id="category-select" onchange="updatePrice()" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none">
+                    <option value="CLEAN">🧹 청소 매진 (50,000원)</option>
+                    <option value="RENTAL">🤖 렌탈 매진 (30,000원)</option>
+                    <option value="INTERNET">🌐 통신 매진 (70,000원)</option>
+                    <option value="CARE">🚑 케어 매진 (40,000원)</option>
+                </select>
+                <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100 mt-6">
+                    <p class="text-blue-600 text-xs font-bold uppercase mb-1">정산 예정 금액</p>
+                    <p id="display-price" class="text-2xl font-black text-slate-900">₩50,000</p>
+                </div>
+            </div>
+            <div class="border-2 border-dashed border-blue-200 rounded-2xl p-8 text-center bg-blue-50">
+                <input type="file" name="video" id="video" accept="video/*" required class="hidden">
+                <label for="video" class="cursor-pointer">
+                    <div class="text-4xl mb-2 text-blue-600"><i class="fa-solid fa-video"></i></div>
+                    <span class="text-blue-600 font-bold">작업 영상 선택/촬영</span>
+                    <p class="text-xs text-blue-400 mt-2">최대 500MB까지 업로드 가능</p>
+                </label>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-lg hover:bg-blue-700 transition shadow-lg shadow-blue-200">업로드 및 정산 요청</button>
+        </form>
+    </div>
+    <script>
+        function updatePrice() {
+            const prices = { 'CLEAN': '50,000', 'RENTAL': '30,000', 'INTERNET': '70,000', 'CARE': '40,000' };
+            const selected = document.getElementById('category-select').value;
+            document.getElementById('display-price').innerText = '₩' + prices[selected];
+        }
+        // 위치 정보 자동 수집 스크립트
+        navigator.geolocation.getCurrentPosition((pos) => {
+            document.getElementById('lat').value = pos.coords.latitude;
+            document.getElementById('lng').value = pos.coords.longitude;
+            console.log("현장 위치 파악 완료");
+        }, (err) => {
+            console.warn("Geolocation error:", err);
+            document.getElementById('manual-loc').classList.remove('hidden');
+            alert('위치 권한이 필요합니다. 수동으로 위도/경도를 입력해주세요.');
+        });
+
+        function applyManualLocation(){
+            const lat = document.getElementById('manual-lat').value;
+            const lng = document.getElementById('manual-lng').value;
+            if(!lat || !lng){
+                alert('위도와 경도를 모두 입력하세요.');
+                return;
+            }
+            document.getElementById('lat').value = lat;
+            document.getElementById('lng').value = lng;
+            alert('수동 위치가 적용되었습니다.');
+        }
+    </script>
+</body>
+</html>

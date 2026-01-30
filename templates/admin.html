@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매진남 ADMIN | Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="apple-touch-icon" href="/static/logo.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
+        body { font-family: 'Pretendard', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+        .status-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .neon-border { box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+    </style>
+</head>
+<body class="min-h-screen flex">
+
+    <aside class="w-64 border-r border-slate-800 p-6 hidden lg:block">
+        <div class="flex items-center space-x-3 mb-12">
+            <div class="w-10 h-10 rounded-full overflow-hidden neon-border">
+                <img src="/static/logo.svg" alt="MaejinNam" class="w-full h-full object-cover">
+            </div>
+            <span class="text-xl font-extrabold tracking-tighter">매진남 <span class="text-blue-500 text-xs">HQ</span></span>
+        </div>
+        
+        <nav class="space-y-2">
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-xl bg-blue-600/10 text-blue-400 font-bold">
+                <i class="fa-solid fa-chart-pie w-5"></i> <span>대시보드</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-800 transition text-slate-400">
+                <i class="fa-solid fa-video w-5"></i> <span>영상 검수</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-800 transition text-slate-400">
+                <i class="fa-solid fa-credit-card w-5"></i> <span>정산 관리</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-800 transition text-slate-400">
+                <i class="fa-solid fa-users w-5"></i> <span>파트너 관리</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h2 class="text-2xl font-extrabold text-white">현장 검수 데스크</h2>
+                <p class="text-slate-500 text-sm mt-1">실시간으로 업로드된 전문가 영상을 검수하고 정산하십시오.</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="text-right mr-4">
+                    <p class="text-xs text-slate-500 font-bold uppercase">TODAY'S PAYOUT</p>
+                    <p class="text-lg font-black text-blue-400">₩4,250,000</p>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border border-slate-600">
+                    <i class="fa-solid fa-bell text-slate-400"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="glass-panel p-6 rounded-[2rem] overflow-hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold text-blue-400 flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 status-pulse"></span>
+                            LIVE INSPECTION: JOB_#1204
+                        </span>
+                        <div class="flex space-x-2">
+                            <button onclick="document.getElementById('video').playbackRate = 1.5" class="px-3 py-1 bg-slate-800 rounded-lg text-[10px] font-bold">1.5X</button>
+                            <button onclick="document.getElementById('video').playbackRate = 2.0" class="px-3 py-1 bg-slate-800 rounded-lg text-[10px] font-bold">2.0X</button>
+                        </div>
+                    </div>
+                    <video id="video" controls class="w-full aspect-video rounded-2xl bg-black border border-slate-700">
+                        <source src="/static/uploads/videos/sample.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 rounded-3xl">
+                        <h4 class="text-xs font-bold text-slate-500 mb-4">작업 내역 요약</h4>
+                        <p class="text-sm font-semibold">📍 세종시 나성동 - 아파트 청소</p>
+                        <p class="text-xs text-slate-400 mt-2 italic">"베란다 창틀 및 주방 후드 집중 관리 요청 건"</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-3xl">
+                        <h4 class="text-xs font-bold text-slate-500 mb-4">파트너 정보</h4>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-[10px]">P</div>
+                            <div>
+                                <p class="text-sm font-bold">김매진 파트너</p>
+                                <p class="text-[10px] text-green-400">신원 검증 완료 (V)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-[2.5rem] flex flex-col">
+                <h3 class="text-xl font-bold mb-8">정산 승인 컨트롤</h3>
+                <div class="space-y-6 flex-1">
+                    <div class="p-4 bg-slate-800/50 rounded-2xl">
+                        <p class="text-xs text-slate-500 mb-1">지급 예정 금액</p>
+                        <p class="text-3xl font-black text-white">₩85,000</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 ml-1">검수 코멘트</label>
+                        <textarea class="w-full bg-slate-800 border border-slate-700 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-blue-500 outline-none h-40" placeholder="파트너에게 전달될 피드백을 입력하세요..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4 mt-8">
+                    <form action="/admin/approve_pay/1204" method="POST">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-2xl font-extrabold shadow-lg shadow-blue-900/40 transition-all">
+                            최종 검수 및 정산 승인
+                        </button>
+                    </form>
+                    <button class="w-full bg-slate-800 text-slate-400 py-4 rounded-2xl font-bold text-sm hover:bg-rose-900/20 hover:text-rose-400 transition-all">
+                        재촬영 요청 (반려)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local env / secrets
+.env
+instance/
+
+# Database / logs / uploads
+*.db
+maejinnam.db
+maejinnam_finance.log
+static/uploads/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Test caches
+.pytest_cache/
+
+# Misc
+*.pyc

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>매진남 — 영상 기반 현장 검증 플랫폼</title>
+  <meta name="description" content="매진남: 전문가 영상 기반 현장 검증 및 서비스 연결 플랫폼. 위치 검증, 관리자 검토, 거리 기반 요금 산정." />
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="apple-touch-icon" href="/static/logo.svg">
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --text:#eaf2ff;
+      --muted:rgba(234,242,255,.78);
+      --muted2:rgba(234,242,255,.62);
+      --glass:rgba(255,255,255,.06);
+      --glass-border:rgba(255,255,255,.12);
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --shadow2:0 22px 70px rgba(0,0,0,.48);
+      --accent1:#22d3ee;
+      --accent2:#60a5fa;
+      --accent3:#a78bfa;
+      --radius:18px;
+      --max:1040px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",Helvetica,Arial;
+      color:var(--text);
+      background:transparent;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* Fullscreen background video */
+    .bg-video{
+      position:fixed; inset:0; z-index:-2; overflow:hidden;
+      background:var(--bg);
+    }
+    .bg-video__media{
+      width:100%; height:100%;
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.06) brightness(.78);
+      transform:scale(1.02);
+    }
+    .bg-video__overlay{
+      position:absolute; inset:0; z-index:1;
+      background:
+        radial-gradient(1200px 600px at 18% 12%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(900px 520px at 82% 22%, rgba(99,102,241,.16), transparent 58%),
+        radial-gradient(900px 700px at 50% 90%, rgba(167,139,250,.10), transparent 62%),
+        linear-gradient(180deg, rgba(11,18,32,.58), rgba(11,18,32,.90));
+      pointer-events:none;
+    }
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background:linear-gradient(180deg, rgba(11,18,32,.72), rgba(11,18,32,.20));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav__inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+    }
+    .brand__mark{
+      width:34px; height:34px; border-radius:10px;
+      background:linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow:0 14px 30px rgba(0,0,0,.35);
+    }
+    .brand__name{
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .nav__links{
+      display:flex; gap:14px; align-items:center;
+      color:var(--muted2);
+      font-size:14px;
+    }
+    .nav__links a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:10px;
+      transition:background .18s ease, color .18s ease;
+    }
+    .nav__links a:hover{
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:11px 16px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:-.01em;
+      border:1px solid transparent;
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn--primary{
+      color:#05131c;
+      background:linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow:0 16px 44px rgba(0,0,0,.40);
+    }
+    .btn--primary:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--shadow2);
+      filter:brightness(1.03);
+    }
+    .btn--ghost{
+      color:var(--text);
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .btn--ghost:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.10);
+      box-shadow:0 18px 48px rgba(0,0,0,.35);
+    }
+
+    /* Hero */
+    .hero{padding:56px 0 18px}
+    .hero__grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .hero__card{
+      border:1px solid var(--glass-border);
+      background:var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius:calc(var(--radius) + 6px);
+      box-shadow:var(--shadow);
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero__card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:radial-gradient(700px 280px at 20% 0%, rgba(34,211,238,.16), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      font-size:13px;
+      color:rgba(234,242,255,.74);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      position:relative;
+      z-index:1;
+    }
+
+... (file continues)

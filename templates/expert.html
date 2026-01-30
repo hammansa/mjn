@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매진남 파트너 센터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="apple-touch-icon" href="/static/logo.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div class="max-w-4xl mx-auto px-6 py-10">
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center gap-4">
+                <img src="/static/logo.svg" alt="MaejinNam" class="w-12 h-12 object-cover rounded-full">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-900">내 작업 내역</h1>
+                    <p class="text-slate-500 mt-2 italic">총 {{ jobs|length }}건의 작업이 등록되어 있습니다.</p>
+                </div>
+            </div>
+            <button onclick="location.href='/expert/upload_page'" class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">
+                <i class="fa-solid fa-plus mr-2"></i>새 작업 보고
+            </button>
+        </div>
+
+        <div class="space-y-4">
+            {% for job in jobs %}
+            <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex justify-between items-center">
+                <div class="flex items-center space-x-6">
+                    <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-file-video text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 mb-1">JOB #{{ job[0] }}</p>
+                        <h3 class="text-lg font-bold text-slate-800">영상 검증 요청 건</h3>
+                        <p class="text-sm text-blue-600 font-bold">정산 예정액: ₩{{ job[3]|krw }}</p>
+                    </div>
+                </div>
+                
+                <div class="text-right">
+                    {% if job[2] == 'WAITING' %}
+                        <span class="px-4 py-2 bg-amber-50 text-amber-600 rounded-full text-xs font-black ring-1 ring-amber-200">검수 대기 중</span>
+                    {% elif job[2] == 'PAID' %}
+                        <span class="px-4 py-2 bg-green-50 text-green-600 rounded-full text-xs font-black ring-1 ring-green-200">정산 완료</span>
+                    {% else %}
+                        <span class="px-4 py-2 bg-slate-100 text-slate-500 rounded-full text-xs font-black">처리 중</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
+                <p class="text-slate-400 font-medium">아직 등록된 작업 영상이 없습니다.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
